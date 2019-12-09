@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-12-2019 a las 07:11:35
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.2.12
+-- Tiempo de generación: 09-12-2019 a las 23:11:58
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -97,25 +97,6 @@ INSERT INTO `estado` (`id_estado`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `id_tipo_contenedor`
---
-
-CREATE TABLE `id_tipo_contenedor` (
-  `id_tipo_contenedor` int(11) NOT NULL,
-  `nombre_contenedor` varchar(50) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `id_tipo_contenedor`
---
-
-INSERT INTO `id_tipo_contenedor` (`id_tipo_contenedor`, `nombre_contenedor`) VALUES
-(1, 'contenedor 1'),
-(2, 'contenedor 2');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `ingreso`
 --
 
@@ -196,7 +177,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`dui_persona`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `id_sexo`, `telefono`, `direccion`) VALUES
-('123456789', 'Humberto', 'Wilfredo', 'Henriquez', 'Benitez', 1, '74164157', 'Edif 2 apto 31 colonia zacamil');
+('123456', 'dada', 'dasdda', 'dasdadasd', 'adasda', 1, '', 'edif'),
+('123456789', 'Humberto', 'Wilfredo', 'Henriquez', 'Benitez', 1, '74164157', 'Edif 2 apto 31 colonia zacamil'),
+('13214', '323123', '123123', '2131321', '3213123', 2, '', '313213');
 
 -- --------------------------------------------------------
 
@@ -209,6 +192,14 @@ CREATE TABLE `pieza` (
   `nombre_pieza` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pieza`
+--
+
+INSERT INTO `pieza` (`Id_pieza`, `nombre_pieza`, `id_categoria`) VALUES
+(1, 'cualquiera', 2),
+(2, 'cualquiera 22', 1);
 
 -- --------------------------------------------------------
 
@@ -307,6 +298,25 @@ INSERT INTO `sexo` (`id_sexo`, `sexo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_contenedor`
+--
+
+CREATE TABLE `tipo_contenedor` (
+  `id_tipo_contenedor` int(11) NOT NULL,
+  `nombre_contenedor` varchar(50) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_contenedor`
+--
+
+INSERT INTO `tipo_contenedor` (`id_tipo_contenedor`, `nombre_contenedor`) VALUES
+(1, 'contenedor 1'),
+(2, 'contenedor 2');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipo_motor`
 --
 
@@ -361,7 +371,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `dui_persona`, `id_rol`) VALUES
-(4, 'dsadasd231', 'dada212', '123456789', 1);
+(5, 'Humbertoh5@hotmail.com', '12345', '123456789', 2);
 
 -- --------------------------------------------------------
 
@@ -392,7 +402,10 @@ CREATE TABLE `vehiculo` (
 --
 
 INSERT INTO `vehiculo` (`id_vehiculo`, `id_modelo`, `anio`, `color`, `fecha_ingreso`, `VIN`, `id_poliza`, `id_clase`, `millas`, `serie`, `id_transmision`, `id_tipo_motor`, `serial`, `id_ingreso`, `precio_ingreso`) VALUES
-(1, 2, 1993, 'azul', '2019-12-03', '123', '123', 1, 122, 1234, 2, 2, '4123', 4, 1234);
+(1, 2, 1993, 'azul', '2019-12-03', '000', '123', 1, 122, 1234, 2, 2, '4123', 4, 789),
+(2, 2, 1994, 'azul', '2019-12-03', '123', '123', 1, 555, 1234, 2, 2, '4123', 4, 1234),
+(3, 2, 2023, '1dada', '0002-12-31', 'sada', '123', 1, 3132, 231, 1, 1, '32431', 4, 232),
+(4, 2, 0000, 'sfs3', '0004-02-23', 'fsf', '123', 1, 424, 2424, 1, 1, '43242', 4, 43242);
 
 -- --------------------------------------------------------
 
@@ -438,12 +451,6 @@ ALTER TABLE `detalle_venta`
 --
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`id_estado`);
-
---
--- Indices de la tabla `id_tipo_contenedor`
---
-ALTER TABLE `id_tipo_contenedor`
-  ADD PRIMARY KEY (`id_tipo_contenedor`);
 
 --
 -- Indices de la tabla `ingreso`
@@ -515,6 +522,12 @@ ALTER TABLE `sexo`
   ADD PRIMARY KEY (`id_sexo`);
 
 --
+-- Indices de la tabla `tipo_contenedor`
+--
+ALTER TABLE `tipo_contenedor`
+  ADD PRIMARY KEY (`id_tipo_contenedor`);
+
+--
 -- Indices de la tabla `tipo_motor`
 --
 ALTER TABLE `tipo_motor`
@@ -583,12 +596,6 @@ ALTER TABLE `estado`
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `id_tipo_contenedor`
---
-ALTER TABLE `id_tipo_contenedor`
-  MODIFY `id_tipo_contenedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
@@ -610,7 +617,7 @@ ALTER TABLE `modelo`
 -- AUTO_INCREMENT de la tabla `pieza`
 --
 ALTER TABLE `pieza`
-  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza_vehiculo`
@@ -637,6 +644,12 @@ ALTER TABLE `sexo`
   MODIFY `id_sexo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `tipo_contenedor`
+--
+ALTER TABLE `tipo_contenedor`
+  MODIFY `id_tipo_contenedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `tipo_motor`
 --
 ALTER TABLE `tipo_motor`
@@ -652,13 +665,13 @@ ALTER TABLE `transmision`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
@@ -713,7 +726,7 @@ ALTER TABLE `pieza_vehiculo`
 -- Filtros para la tabla `poliza`
 --
 ALTER TABLE `poliza`
-  ADD CONSTRAINT `poliza_contenedor` FOREIGN KEY (`id_tipo_contenedor`) REFERENCES `id_tipo_contenedor` (`id_tipo_contenedor`);
+  ADD CONSTRAINT `poliza_contenedor` FOREIGN KEY (`id_tipo_contenedor`) REFERENCES `tipo_contenedor` (`id_tipo_contenedor`);
 
 --
 -- Filtros para la tabla `proveedor`
