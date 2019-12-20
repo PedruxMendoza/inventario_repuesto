@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-12-2019 a las 23:11:58
+-- Tiempo de generación: 20-12-2019 a las 16:45:10
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -40,8 +40,8 @@ CREATE TABLE `categoria_piezas` (
 --
 
 INSERT INTO `categoria_piezas` (`id_categoria`, `nombre_categoria`) VALUES
-(1, 'toyota'),
-(2, 'honda');
+(3, 'CHIO'),
+(1, 'toyota');
 
 -- --------------------------------------------------------
 
@@ -59,8 +59,9 @@ CREATE TABLE `clase_vehiculo` (
 --
 
 INSERT INTO `clase_vehiculo` (`id_clase`, `nombre_clase`) VALUES
+(2, 'cualquier cosa'),
 (1, 'ejemplo2'),
-(2, 'cualquier cosa');
+(3, 'Humberto');
 
 -- --------------------------------------------------------
 
@@ -74,6 +75,13 @@ CREATE TABLE `detalle_venta` (
   `id_pieza` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_pieza`, `cantidad`) VALUES
+(1, 1, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -132,8 +140,15 @@ CREATE TABLE `marca` (
 --
 
 INSERT INTO `marca` (`id_marca`, `nombre_marca`) VALUES
-(1, 'dawrq'),
-(2, '1231asa');
+(14, 'Audi'),
+(13, 'BMW'),
+(12, 'Honda'),
+(4, 'Humberto'),
+(15, 'Mercedes'),
+(10, 'Miguelon'),
+(1, 'pedrokjhgkhj'),
+(3, 'probando'),
+(11, 'Toyota');
 
 -- --------------------------------------------------------
 
@@ -152,8 +167,15 @@ CREATE TABLE `modelo` (
 --
 
 INSERT INTO `modelo` (`id_modelo`, `nombre_modelo`, `id_marca`) VALUES
-(1, 'fdsfsdas', 2),
-(2, 'dasda', 1);
+(1, 'fsdfs', 1),
+(2, 'deeeeeeeee', 4),
+(7, 'Benitez', 4),
+(9, 'qqweqwedwedasdfaedgsadrfgcxvdfgsfvbw', 1),
+(10, 'hola', 1),
+(20, 'adasdasdddasdasdsad', 1),
+(24, 'Rocio', 3),
+(26, 'Corolla', 11),
+(27, 'Civic', 12);
 
 -- --------------------------------------------------------
 
@@ -177,9 +199,11 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`dui_persona`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `id_sexo`, `telefono`, `direccion`) VALUES
-('123456', 'dada', 'dasdda', 'dasdadasd', 'adasda', 1, '', 'edif'),
+('123456', 'Humberto', 'dasdda', 'dasdadasd', 'adasda', 1, '', 'noooooooooooooooooooooooooo'),
 ('123456789', 'Humberto', 'Wilfredo', 'Henriquez', 'Benitez', 1, '74164157', 'Edif 2 apto 31 colonia zacamil'),
-('13214', '323123', '123123', '2131321', '3213123', 2, '', '313213');
+('222222222', 'merlin', 'rocio', 'martinez', 'miranda', 2, '', 'planes de renderos'),
+('24324', 'Wilfredo', 'sfsf', 'sdfsdfs', 'fsf', 1, '', 'fsfsdfs'),
+('45353', 'Humberto', 'WIlfredo', 'Henriquez', 'Benitez', 1, '', '5353');
 
 -- --------------------------------------------------------
 
@@ -198,8 +222,9 @@ CREATE TABLE `pieza` (
 --
 
 INSERT INTO `pieza` (`Id_pieza`, `nombre_pieza`, `id_categoria`) VALUES
-(1, 'cualquiera', 2),
-(2, 'cualquiera 22', 1);
+(2, 'cualquiera 22', 1),
+(3, 'meeeeeeeeeeeeeeeeeeeeerlinnnnnnnnnnnnnnnnnnn', 1),
+(4, 'Pedro', 3);
 
 -- --------------------------------------------------------
 
@@ -215,6 +240,15 @@ CREATE TABLE `pieza_vehiculo` (
   `precio_venta` double NOT NULL,
   `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pieza_vehiculo`
+--
+
+INSERT INTO `pieza_vehiculo` (`id_pieza_vehiculo`, `id_pieza`, `id_vehiculo`, `precio_ingreso`, `precio_venta`, `stock`) VALUES
+(1, 4, 7, 5, 3, 315646),
+(2, 3, 3, 4535, 345353, 53453),
+(3, 2, 7, 54353, 53453, 5348);
 
 -- --------------------------------------------------------
 
@@ -235,7 +269,14 @@ CREATE TABLE `poliza` (
 --
 
 INSERT INTO `poliza` (`id_poliza`, `id_tipo_contenedor`, `cantidad`, `peso`, `doc_transporte`) VALUES
-('123', 1, 2, 23, 'bus');
+('0000', 2, 123, 123, '123'),
+('12', 1, 13, 0, '2342'),
+('123', 1, 2, 23, 'bus'),
+('asdad', 1, 5, 5, 'asdasdasd'),
+('dfgbszfgxfg', 2, 0, 0, 'hnhnhnhnhn'),
+('fdsf', 2, 3232, 343, '5345'),
+('ljlkjl', 1, 50, 50, '54sa654da'),
+('noooooooooo', 1, 5, 5, 'nooooooooooooooooo');
 
 -- --------------------------------------------------------
 
@@ -371,7 +412,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `dui_persona`, `id_rol`) VALUES
-(5, 'Humbertoh5@hotmail.com', '12345', '123456789', 2);
+(27, 'pdrmendoza007@gmail.com', '60f75fa1ac026844fbb09cbe0cd573e8', '123456789', 1),
+(30, 'Definitivo definitivo', '81dc9bdb52d04dc20036dbd8313ed055', '123456', 1),
+(31, 'Probando', '202cb962ac59075b964b07152d234b70', '123456', 1),
+(32, '123!aMlm', '76d80224611fc919a5d54f0ff9fba446', '123456', 1),
+(34, 'wilfredo@hotmail.com', '60f75fa1ac026844fbb09cbe0cd573e8', '123456789', 2),
+(35, 'cactusworld@gmail.com', '202cb962ac59075b964b07152d234b70', '123456', 1),
+(36, 'benitezh5@hotmail.com', '9e68ac7abe4f1e833f6f84d6cc86f1a6', '123456789', 1);
 
 -- --------------------------------------------------------
 
@@ -402,10 +449,12 @@ CREATE TABLE `vehiculo` (
 --
 
 INSERT INTO `vehiculo` (`id_vehiculo`, `id_modelo`, `anio`, `color`, `fecha_ingreso`, `VIN`, `id_poliza`, `id_clase`, `millas`, `serie`, `id_transmision`, `id_tipo_motor`, `serial`, `id_ingreso`, `precio_ingreso`) VALUES
-(1, 2, 1993, 'azul', '2019-12-03', '000', '123', 1, 122, 1234, 2, 2, '4123', 4, 789),
-(2, 2, 1994, 'azul', '2019-12-03', '123', '123', 1, 555, 1234, 2, 2, '4123', 4, 1234),
-(3, 2, 2023, '1dada', '0002-12-31', 'sada', '123', 1, 3132, 231, 1, 1, '32431', 4, 232),
-(4, 2, 0000, 'sfs3', '0004-02-23', 'fsf', '123', 1, 424, 2424, 1, 1, '43242', 4, 43242);
+(3, 1, 1992, '1dada', '0002-12-31', 'sada', '123', 1, 123456789, 123, 1, 1, '23', 4, 232),
+(7, 1, 1992, '332', '0032-03-12', '12345678909876543', '123', 1, 32, 323, 2, 2, '12345678909876543218', 4, 30),
+(12, 7, 0000, 'ads654asddsa', '2019-12-17', '98asd798a7d9s', '0000', 1, 5645546456654, 2147483647, 1, 1, '56465465', 4, 46456),
+(14, 27, 2001, 'Blanco', '2019-08-03', '12345678912345645', 'asdad', 1, 2, 2147483647, 1, 1, '12345678909876543212', 4, 3),
+(19, 27, 2001, 'blanco', '1991-08-03', '12345678912345652', 'asdad', 2, 2, 123456, 2, 1, '12345678909876543255', 4, 3),
+(22, 2, 0000, 'plateaado', '1991-12-08', '12345678912345678', '12', 1, 231321, 3232, 2, 1, '12345678909876543217', 4, 3);
 
 -- --------------------------------------------------------
 
@@ -423,6 +472,13 @@ CREATE TABLE `venta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`id_venta`, `dui_persona`, `id_usuario`, `num_factura`, `fecha_hora`, `total_venta`) VALUES
+(1, '123456789', 31, '12345678', '2019-12-20 08:16:37', 267);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -430,13 +486,15 @@ CREATE TABLE `venta` (
 -- Indices de la tabla `categoria_piezas`
 --
 ALTER TABLE `categoria_piezas`
-  ADD PRIMARY KEY (`id_categoria`);
+  ADD PRIMARY KEY (`id_categoria`),
+  ADD UNIQUE KEY `nombre_categoria` (`nombre_categoria`);
 
 --
 -- Indices de la tabla `clase_vehiculo`
 --
 ALTER TABLE `clase_vehiculo`
-  ADD PRIMARY KEY (`id_clase`);
+  ADD PRIMARY KEY (`id_clase`),
+  ADD UNIQUE KEY `nombre_clase` (`nombre_clase`);
 
 --
 -- Indices de la tabla `detalle_venta`
@@ -464,13 +522,15 @@ ALTER TABLE `ingreso`
 -- Indices de la tabla `marca`
 --
 ALTER TABLE `marca`
-  ADD PRIMARY KEY (`id_marca`);
+  ADD PRIMARY KEY (`id_marca`),
+  ADD UNIQUE KEY `nombre_marca` (`nombre_marca`);
 
 --
 -- Indices de la tabla `modelo`
 --
 ALTER TABLE `modelo`
   ADD PRIMARY KEY (`id_modelo`),
+  ADD UNIQUE KEY `nombre_modelo` (`nombre_modelo`),
   ADD KEY `modelo_marca` (`id_marca`);
 
 --
@@ -485,6 +545,8 @@ ALTER TABLE `persona`
 --
 ALTER TABLE `pieza`
   ADD PRIMARY KEY (`Id_pieza`),
+  ADD UNIQUE KEY `nombre_pieza` (`nombre_pieza`),
+  ADD UNIQUE KEY `nombre_pieza_2` (`nombre_pieza`),
   ADD KEY `pieza_categoria` (`id_categoria`);
 
 --
@@ -531,13 +593,15 @@ ALTER TABLE `tipo_contenedor`
 -- Indices de la tabla `tipo_motor`
 --
 ALTER TABLE `tipo_motor`
-  ADD PRIMARY KEY (`id_tipo_motor`);
+  ADD PRIMARY KEY (`id_tipo_motor`),
+  ADD UNIQUE KEY `nombre_tipo_motor` (`nombre_tipo_motor`);
 
 --
 -- Indices de la tabla `transmision`
 --
 ALTER TABLE `transmision`
-  ADD PRIMARY KEY (`id_transmision`);
+  ADD PRIMARY KEY (`id_transmision`),
+  ADD UNIQUE KEY `tipo_transmision` (`tipo_transmision`);
 
 --
 -- Indices de la tabla `usuario`
@@ -552,6 +616,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vehiculo`
   ADD PRIMARY KEY (`id_vehiculo`),
+  ADD UNIQUE KEY `VIN` (`VIN`),
+  ADD UNIQUE KEY `serial` (`serial`),
   ADD KEY `vehiculo_modelo` (`id_modelo`),
   ADD KEY `vehiculo_clase` (`id_clase`),
   ADD KEY `vehiculo_transmision` (`id_transmision`),
@@ -575,19 +641,19 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `categoria_piezas`
 --
 ALTER TABLE `categoria_piezas`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `clase_vehiculo`
 --
 ALTER TABLE `clase_vehiculo`
-  MODIFY `id_clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -605,25 +671,25 @@ ALTER TABLE `ingreso`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `modelo`
 --
 ALTER TABLE `modelo`
-  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza`
 --
 ALTER TABLE `pieza`
-  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza_vehiculo`
 --
 ALTER TABLE `pieza_vehiculo`
-  MODIFY `id_pieza_vehiculo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pieza_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -653,31 +719,31 @@ ALTER TABLE `tipo_contenedor`
 -- AUTO_INCREMENT de la tabla `tipo_motor`
 --
 ALTER TABLE `tipo_motor`
-  MODIFY `id_tipo_motor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tipo_motor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `transmision`
 --
 ALTER TABLE `transmision`
-  MODIFY `id_transmision` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_transmision` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

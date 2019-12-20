@@ -1,4 +1,4 @@
-
+<script src="<?php echo base_url('props/js/poliza.js'); ?>"></script>
 <?php $this->load->helper('ajax_poliza') ?>
 <body>
 	<!-- ============================================================== -->
