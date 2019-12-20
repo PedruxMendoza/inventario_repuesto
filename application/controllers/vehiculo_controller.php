@@ -112,11 +112,23 @@ class vehiculo_controller extends CI_Controller {
 					$datos['ingreso'] = $this->vehiculo_model->get_ingreso();
 					$datos['title'] = 'Inventario || Vehiculo';  
 					$datos['msj'] = "success";
-					$datos['titulo'] = 'Votaciones || Detalles Votaciones';
 					$this->load->view('template/header',$datos);
 					$this->load->view('vehiculo_view');
 					$this->load->view('template/footer'); 
-				}
+				}else{
+					$datos['modelo'] = $this->vehiculo_model->get_modelo();
+					$datos['poliza'] = $this->vehiculo_model->get_poliza();
+					$datos['clase_vehiculo'] = $this->vehiculo_model->get_clase_vehiculo();
+					$datos['vehiculo'] = $this->vehiculo_model->get_vehiculo();
+					$datos['transmision'] = $this->vehiculo_model->get_transmision();
+					$datos['tipo_motor'] = $this->vehiculo_model->get_tipo_motor();
+					$datos['ingreso'] = $this->vehiculo_model->get_ingreso();
+					$datos['title'] = 'Inventario || Vehiculo';  
+					$datos['msj'] = "errorI";
+                	$this->load->view('template/header',$datos);
+                	$this->load->view('vehiculo_view');
+                	$this->load->view('template/footer');              
+                }
 			}else{
 				redirect('Welcome/error404','refresh');
 			}

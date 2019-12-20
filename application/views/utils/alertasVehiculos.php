@@ -32,7 +32,24 @@ if (isset($msj)) {
 				}
 			})
 		</script>
-	<?php } 
+	<?php }
+
+	if($msj=='errorI') { ?>
+		<script>
+			Swal.fire({
+				title: 'Error al Ingresar!!!',
+				text: "No se ha podido ingresar porque el campo VIN y/o serial son unico!",
+				icon: 'error',
+				showCancelButton: false,
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: 'Aceptar'
+			}).then((result) => {
+				if (result.value) {
+					window.location.href = "../vehiculo_controller/index" ; /*Aqui se cambia por el nombre del controlado que se ira a copiar (../nombre_controller/index)*/
+				}
+			})
+		</script>
+	<?php }	 
 
 	if($msj=='errorE') { ?>
 		<script>

@@ -73,6 +73,14 @@ class modeloC extends CI_Controller {
                   	$this->load->view('template/header', $datos);
                   	$this->load->view('modeloV');
                   	$this->load->view('template/footer');  
+                  }else{
+                  	$datos['modelo'] = $this->modeloM->get_modelo();
+                  	$datos['marca']    = $this->modeloM->get_marca();
+                  	$datos['title'] = 'Inventario || Modelo';         
+                  	$datos['msj'] = "errorI";  //Esto se agrega (no se encuentra en el index)
+                  	$this->load->view('template/header', $datos);
+                  	$this->load->view('modeloV');
+                  	$this->load->view('template/footer');           
                   }
               }else{
               	redirect('Welcome/error404','refresh');

@@ -69,6 +69,13 @@ class marcaC extends CI_Controller {
                   	$this->load->view('template/header', $datos);
                   	$this->load->view('marcaV');
                   	$this->load->view('template/footer');   
+                  }else{
+                  	$datos['marca'] = $this->marcaM->get_marca();
+                  	$datos['title'] = 'Inventario || Marca';       
+                  	$datos['msj'] = "errorI";  //Esto se agrega (no se encuentra en el index)
+                  	$this->load->view('template/header', $datos);
+                  	$this->load->view('marcaV');
+                  	$this->load->view('template/footer');           
                   }
               }else{
               	redirect('Welcome/error404','refresh');

@@ -32,7 +32,7 @@ if (isset($msj)) {
 				}
 			})
 		</script>
-	<?php } 
+	<?php }
 
 	if($msj=='errorE') { ?>
 		<script>
@@ -46,6 +46,23 @@ if (isset($msj)) {
 			}).then((result) => {
 				if (result.value) {
 					window.location.href = "../../marcaC/index" ; /*Aqui se cambia por el nombre del controlado que se ira a copiar (../nombre_controller/index)*/
+				}
+			})
+		</script>
+	<?php }	 
+
+	if($msj=='errorI') { ?>
+		<script>
+			Swal.fire({
+				title: 'Error al Ingresar!!!',
+				text: "No se ha podido ingresar porque este campo es unico",
+				icon: 'error',
+				showCancelButton: false,
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: 'Aceptar'
+			}).then((result) => {
+				if (result.value) {
+					window.location.href = "../marcaC/index" ; /*Aqui se cambia por el nombre del controlado que se ira a copiar (../nombre_controller/index)*/
 				}
 			})
 		</script>
