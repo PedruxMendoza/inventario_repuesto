@@ -8,10 +8,15 @@ class venta_controller extends CI_Controller {
 		$this->load->model('venta_model');
 	}
 	public function index(){
-		$data = array('title' => 'Informes de Venta');
-		$this->load->view('template/header',$data);
-		$this->load->view('venta_view');
-		$this->load->view('template/footer');
+		if ($this->session->userdata('logueado') == TRUE) {
+				$data = array('title' => 'Inventario || Informes de Venta');
+				$this->load->view('template/header',$data);
+				$this->load->view('venta_view');
+				$this->load->view('template/footer');
+		}else{
+			redirect('loginController/index','refresh');
+		}
+		
 	}
 
 	public function get_venta(){
@@ -58,11 +63,11 @@ class venta_controller extends CI_Controller {
 		$datos['total_venta'] = ($datos['cantidad'])*($datos['precio_venta']);
 		$respuesta = $this->venta_model->ingresar($datos);
 		echo json_encode($respuesta);*/
-	/*}*/
+		/*}*/
 
-	public function get_detalle(){
-		$id = $this->input->post('id');
-		$respuesta = $this->venta_model->get_detalle($id);
-		echo json_encode($respuesta);
+		public function get_detalle(){
+			$id = $this->input->post('id');
+			$respuesta = $this->venta_model->get_detalle($id);
+			echo json_encode($respuesta);
+		}
 	}
-}

@@ -120,7 +120,7 @@
 				type: 'ajax',
 				method: 'post',
 				data: {id:id},
-				url: '<?= base_url('vender_controller/get_vendedor1') ?>',
+				url: '<?= base_url('vender_controller/get_vendedor') ?>',
 				dataType: 'json',
 
 				success:function(datos) {
@@ -132,7 +132,7 @@
 		$("#btnGuardar").click(function () {
 			$url = $('#formVenta').attr('action');
 			$data = $('#formVenta').serialize();
-
+			if (validar2()==true) {
 			$.ajax({
 				type: 'ajax',
 				method: 'post',
@@ -143,13 +143,14 @@
 				success:function (respuesta) {
 					$("#venta").modal('hide');
 					if (respuesta=='add') {
-						location.replace("vender_controller");
+						location.replace("<?= base_url('vender_controller/index') ?>");
 					}else{
 						alertify.notify('Error al vender','success',10,null);
 					}
 					$('#formVenta')[0].reset();
 				}
 			});
+			}
 		});
 
 
@@ -202,7 +203,7 @@
 						$("#agregar_producto").modal('hide');
 						if (respuesta=='adda') {
 							alertify.notify('Agregado Exitosamente','success',10,null);
-							location.replace("vender_controller");
+							location.replace("<?= base_url('vender_controller/index');?>");
 						}else{
 							alertify.notify('Error al Agregar','success',10,null);
 						}

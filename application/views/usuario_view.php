@@ -1,5 +1,4 @@
-<script src="<?php echo base_url('props/js/ingreso.js'); ?>"></script>
-<?php $this->load->helper('ajax_ingreso'); ?>
+<?php $this->load->helper('validacionesUsuario'); ?>
 <body>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
@@ -111,9 +110,11 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title">ingreso</h4>
+							<h4 class="page-title">Usuarios</h4>
 							<div class="ml-auto text-right">
-								<button type="button" class="btn btn-success" id="nueIng">Nuevo</button>
+								<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									Nuevo usuario
+								</button>
 							</div>
 						</div>
 					</div>
@@ -128,148 +129,127 @@
 					<!-- ============================================================== -->
 					<!-- Start Page Content -->
 					<!-- ============================================================== -->
-					<!-- ============================================================== -->
 					<div class="row">
 						<div class="col-12">
-							
+							<div class="collapse" id="collapseExample">
+								<div class="card">
+									<form action="<?php echo base_url('usuario_controller/ingresar') ?>" method="POST" autocomplete="off"  class="form-horizontal" onsubmit="return validar()">
+										<div class="card-body">
+											<h4 class="card-title">Nuevo usuario</h4>
+											<div class="form-group row">
+												<label for="fname" class="col-sm-3 text-right control-label col-form-label">Correo</label>
+												<div class="col-sm-9">
+													<input type="text"  class="form-control pull-right"  name="correo" id="correo" placeholder="Ingrese correo">
+
+												</div>
+												<div class="col-sm-9" id="infoCorreo"></div>
+											</div>
+											<script type="text/javascript">
+												$(function () {
+													$("#correo").inputmask({ alias: "email" , "clearIncomplete": true});
+												});
+											</script>
+											<div class="form-group row">
+												<label for="email1" class="col-sm-3 text-right control-label col-form-label">Persona</label>
+												<div class="col-sm-9">
+													<select class="form-control" id="persona"  name="dui_persona" >
+														<option value="" class="form-control" >Dui persona</option>
+														<?php foreach ($persona as $e) { ?>
+															<option value="<?= $e->dui_persona ?>"><?= $e->dui_persona ?></option>
+														<?php }  ?>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="cono1" class="col-sm-3 text-right control-label col-form-label">Rol</label>
+												<div class="col-sm-9">
+													<select class="form-control" id="rol" name="id_rol" >
+														<option value="" class="form-control" >Rol de la persona</option>
+														<?php foreach ($rol as $e) { ?>
+															<option value="<?= $e->id_rol ?>"><?= $e->nombre_rol ?></option>
+														<?php }  ?>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="cono1" class="col-sm-3 text-right control-label col-form-label">Contraseña</label>
+												<div class="col-sm-9">
+													<div class="input-group">
+														<input type="password"  class="form-control"  name="clave" id="contrasenna" placeholder="Ingrese clave" aria-describedby="basic-addon2">
+														<div class="input-group-append">
+															<!-- <span class="input-group-text" id="basic-addon2">$</span> -->
+															<button id="show_password" class="btn btn-info" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+														</div>
+													</div>
+													<div id="pswd_info">
+														<ul>
+															<li id="mayuscula" class="invalid">Al menos <strong>una mayuscula</strong></li>
+															<li id="especial" class="invalid">Al menos <strong>un caracter especial</strong></li>
+															<li id="numero" class="invalid">Al menos <strong>un numero</strong></li>
+															<li id="length" class="invalid">Por lo menos <strong>8 caracteres</strong></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="border-top">
+											<div class="card-body">
+
+												<input type="submit" value="Guardar" class="btn btn-info">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">ingreso</h4>
+									<h4 class="card-title">Usuarios</h4>
 									<div class="table-responsive">
 										<table id="zero_config" class="table table-bordered table-striped table-dark">
 											<thead>
-												<tr>
-													<td>Proveedor</td>
-													<td>Fecha Hora</td>
-													<td>Numero Comprobante</td>
-													<td>Total Compra</td>
-													<td>Estado</td>
-<!-- 				<td>Eliminar</td>
-	<td>Editar</td> -->
-</tr>
-</thead>
-<tbody id="tabla_ingresos">
-	
-</tbody>
-</table>
-</div>
-</div>
-</div>	            
-</div>
-</div>
-<!-- ============================================================== -->
-<!-- End PAge Content -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Right sidebar -->
-<!-- ============================================================== -->
-<!-- .right-sidebar -->
-<!-- ============================================================== -->
-<!-- End Right sidebar -->
-<!-- ============================================================== -->
-</div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-<br>
+												<th>N°</th>
+												<th>Correo</th>
+												<th>dui_persona</th>
+												<th>id_rol</th>
+												<th class="text-center">Eliminar</th>
+												<th class="text-center">Actualizar</th>
+											</thead>
+											<?php foreach ($usuario as $valor) { ?>
+												<tbody>
+													<tr>
+														<td><?= $valor->id_usuario ?></td>
+														<td><?= $valor->correo ?></td>
 
-<body>
+														<td><?= $valor->dui_persona ?></td>
+														<td><?= $valor->nombre_rol ?></td>
+
+														<td class="text-center"><a href="<?php echo base_url('/usuario_controller/eliminar/'.$valor->id_usuario) ?>"class="btn btn-danger">ELIMINAR</a></td>
+														<td class="text-center"><a  href="<?php echo base_url('/usuario_controller/get_datos/'.$valor->id_usuario) ?>"class="btn btn-info">ACTUALIZAR</a></td>
 
 
-	<div class="modal" tabindex="-1" role="dialog" id="modalBorrar">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirmacion de eliminar</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Realmente desea eliminar el registro?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btnBorrar">Si, borrar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+													</tr>
+												</tbody>
+											<?php }  ?>
+										</table>
+									</div>
 
-
-
-	<div class="modal fade" id="ingreso">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title" style="font-family: 'Montserrat', cursive; color: #a8834c;"></h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<form id="formIngreso" action="" method="POST" style="font-family: 'Montserrat', cursive; color: #46281e;">
-						<input type="hidden" name="id_ingreso" id="id" value="0">
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Proveedor</span>
-									<select name="proveedor" id="proveedor" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Proveedor --</option>
-									</select>
 								</div>
-							</div>
-
+							</div>	            
 						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Numero Comprobante</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="num_comprobante" id="num_comprobante">
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Total Compra</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="total_compra" id="total_compra">
-								</div>
-							</div>
-						</div>
-
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Estado</span>
-									<select name="estado" id="estado" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Estado --</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-
-
-
-					</form>							
+					</div>
+					<!-- ============================================================== -->
+					<!-- End PAge Content -->
+					<!-- ============================================================== -->
+					<!-- ============================================================== -->
+					<!-- Right sidebar -->
+					<!-- ============================================================== -->
+					<!-- .right-sidebar -->
+					<!-- ============================================================== -->
+					<!-- End Right sidebar -->
+					<!-- ============================================================== -->
 				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-		</div>
-	</div>		
-
-<!-- 
-	=============================================================================
--->
-
+				<!-- ============================================================== -->
+				<!-- End Container fluid  -->
+				<!-- ============================================================== -->
+				<br>

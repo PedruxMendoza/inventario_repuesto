@@ -1,16 +1,17 @@
 <script>
-	$(document).ready(function () {
-				//llamamos a la funcion que muestra a TODOS los alumnos en la tabla
-		mostrarIngresos();
+	$(document).ready(function(){
 
-		//Funcion para mostrar alumnos
-		function mostrarIngresos(){
+		//llamamos a la funcion que muestra a TODOS los polizas en la tabla
+		mostrarProveedors();
+
+		//Funcion para mostrar polizas
+		function mostrarProveedors(){
 			//Definimos que trabajaremos con ajax
 			$.ajax({
 				//tipo de solicitud a realizar
 				type: 'ajax',
-				//direccion donde definiremos el controlador y metodo para obtener los alumnos
-				url: '<?= base_url('IngresoC/get_ingresos') ?>',
+				//direccion donde definiremos el controlador y metodo para obtener los polizas
+				url: '<?= base_url('proveedorC/get_proveedor') ?>',
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
@@ -30,32 +31,29 @@
 						//cuerpo de la tabla (TOME EN CUENTA QUE TODO DEBE IR CONCATENADO)
 						tabla +=
 						'<tr class="bg-dark">'+
-						'<td>'+datos[i].dui_persona+' --> '+datos[i].proveedor+'</td>'+
-						'<td>'+datos[i].fecha_hora+'</td>'+
-						'<td>'+datos[i].num_comprobante+'</td>'+
-						
-						'<td>'+datos[i].total_compra+'</td>'+
-						'<td>'+datos[i].estado+'</td>'+
+						//'<td>'+datos[i].id_proveedor+'</td>'+
+						'<td>'+datos[i].dui_persona+" "+datos[i].nombre1+" "+datos[i].nombre2+" "+datos[i].apellido1+" "+datos[i].apellido2+'</td>'+
+						'<td>'+datos[i].telefono+'</td>'+
+						'<td>'+datos[i].correo+'</td>'+
 
-						//creamos un boton para eliminar y editar
-						//tome en cuenta que cada boton tiene la clase borrar y item-edit segun la accion que corresponda
-						'<td>'+'<a href="javascript:;" class="btn btn-danger btn-sm borrar" data="'+datos[i].id_ingreso+'">Eliminar</a>'+
+
+						'<td>'+'<a href="javascript:;" class="btn btn-danger btn-sm borrar" data="'+datos[i].id_proveedor+'">Eliminar</a>'+
 						'</td>'+
-						'<td>'+'<a href="javascript:;" class="btn btn-info btn-sm item-edit" data="'+datos[i].id_ingreso+'">Editar</a>'+
+						'<td>'+'<a href="javascript:;" class="btn btn-info btn-sm item-edit" data="'+datos[i].id_proveedor+'">Editar</a>'+
 						'</td>'+
 						'</tr>';
 						//incrementamos la variable que nos sirve de correlativo
 						n++;
 					}
-					//en la vista la etiqueta <tbody> contiene el id "tabla_alumnos"
+					//en la vista la etiqueta <tbody> contiene el id "tabla_polizas"
 					//con esta linea entregamos la variable que contiene el cuerpo de la tabla
-					$('#tabla_ingresos').html(tabla);
+					$('#tabla_proveedors').html(tabla);
 				}
 			});
-		};//fin de funcion mostrar Alumnos
+		};//fin de funcion mostrar polizas
 
-	//cuando damos click al boton eliminar de cada registro de la tabla_alumnos se ejecutara lo siguiente
-	$('#tabla_ingresos').on('click', '.borrar', function(){
+
+		$('#tabla_proveedors').on('click', '.borrar', function(){
 
 			$id = $(this).attr('data');//para capturar el dato segun el boton que demos click
 
@@ -71,7 +69,7 @@
 					//metodo de envio de los datos (puede ser get)
 					method: 'post',
 					//direccion hacia donde enviaremos la informacion (controlador/metodo)
-					url: '<?php echo base_url('IngresoC/eliminar')?>',
+					url: '<?php echo base_url('proveedorC/eliminar')?>',
 					//datos a enviar, $id es el valor capturado anteriomente del boton
 					data: {id:$id},
 					//Tipo de respuesta que recibiremos
@@ -86,8 +84,8 @@
 						//success tipo de notificacion ---- 10 segundos a mostrar la alerta
 						if(respuesta==true){
 							alertify.notify('Eliminado exitosamente!', 'success', 10, null);
-							//Llamamos a la funcion para mostrar los alumnos y asi actualizar SOLO LA TABLA y NO TODA LA PAGINA
-							mostrarIngresos();
+							//Llamamos a la funcion para mostrar los polizas y asi actualizar SOLO LA TABLA y NO TODA LA PAGINA
+							mostrarProveedors();
 						}else{
 						//si la respuesta que recibimos del modelo es FLASE, mostramos una alerta indicando
 						//que el registro no se pudo eliminar
@@ -101,17 +99,18 @@
 
 		});
 
-		$('#nueIng').click(function(){
+		$('#nuePro').click(function(){
 
 			//mostramos el modal que tiene el formulario para ingresar un poliza
-			$('#ingreso').modal('show');
-			$('#oculto').show();
+			$('#proveedor').modal('show');
+			//$('#oculto').show();
 
 			//modificamos el titulo del modal
-			$('#ingreso').find('.modal-title').text('Nuevo Ingreso');
+			$('#proveedor').find('.modal-title').text('Nuevo Proveedor');
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para ingresar
-			$('#formIngreso').attr('action','<?= base_url('ingresoC/ingresar')?>');
+			$('#formProveedor').attr('action','<?= base_url('proveedorC/ingresar')?>');
 		});
+
 
 		get_persona();//llamado a la funcion para mostrar sexos
 
@@ -121,7 +120,7 @@
 				//tipo de solicitud a realizar
 				type: 'ajax',
 				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_proveedor') ?>',
+				url: '<?= base_url('proveedorC/get_persona') ?>',
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
@@ -134,54 +133,15 @@
 					var i;
 
 					//agregamos a op un option vacio para que no aparezca ninguna opcion seleccionada
-					op +="<option value=''>--Seleccione un Proveedor--</option>";
+					op +="<option value=''>--Dui - Persona--</option>";
 					//recorremos los datos recibidos, con datos.length obtenemos la longitud del arreglo
 					//osea, numero de registros recibidos
 					for(i=0; i<datos.length; i++){
 						//en la variable op vamos guardando cada registro obtenido del modelo
-						
-						
-						 op +="<option value='"+datos[i].id_proveedor+"'> "+datos[i].dui_persona+" --> "+datos[i].proveedor+"</option>";
-
-
-
+						op +="<option value='"+datos[i].dui_persona+"'>"+datos[i].dui_persona+"---------------- "+datos[i].nombre1+" "+datos[i].nombre2+" "+datos[i].apellido1+" "+datos[i].apellido2+"  </option>";
 					}
 					//al select con el id curso le entregamos la variable op que contiene los option
-					$('#proveedor').html(op);
-				}
-			});
-		}//fin de funcion para mostrar cursos	
-
-		get_estado();//llamado a la funcion para mostrar sexos
-
-		function get_estado(){
-			//Definimos que trabajaremos con ajax
-			$.ajax({
-				//tipo de solicitud a realizar
-				type: 'ajax',
-				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_estado') ?>',
-				//Tipo de respuesta que recibiremos
-				dataType: 'json',
-
-				//Si la peticion fue exitosa recibiremos una respuesta, en este caso en la variable "respuesta" recibiremos 
-				//los registros de la tabla sexo
-				success: function(datos){
-					//Creamos una variable que servira para crear los option del select
-					var op = '';
-					//variable para recorrer el for
-					var i;
-
-					//agregamos a op un option vacio para que no aparezca ninguna opcion seleccionada
-					op +="<option value=''>--Seleccione un Estado--</option>";
-					//recorremos los datos recibidos, con datos.length obtenemos la longitud del arreglo
-					//osea, numero de registros recibidos
-					for(i=0; i<datos.length; i++){
-						//en la variable op vamos guardando cada registro obtenido del modelo
-						op +="<option value='"+datos[i].id_estado+"'>"+datos[i].estado+"+</option>";
-					}
-					//al select con el id curso le entregamos la variable op que contiene los option
-					$('#estado').html(op);
+					$('#dui_persona').html(op);
 				}
 			});
 		}//fin de funcion para mostrar cursos
@@ -189,10 +149,10 @@
 		$('#btnGuardar').click(function(){
 
 			//capturamos lo que este en el atributo action del formulario
-			$url = $('#formIngreso').attr('action');
+			$url = $('#formProveedor').attr('action');
 			//capturamos todos los datos del formulario
-			$data = $('#formIngreso').serialize();
-			if (validar() == true) {
+			$data = $('#formProveedor').serialize();
+			if(validar() == true){
 			//Definimos que trabajaremos con ajax
 			$.ajax({
 				//tipo de solicitud a realizar
@@ -211,14 +171,12 @@
 				//edi la recibiremos cuando una actualizacion fue exitosa
 				success: function(respuesta){
 					//Ocultamos el moda, hide significa "oculto"
-					$('#ingreso').modal('hide');
+					$('#proveedor').modal('hide');
 					//si la respuesta recibida es add mostramos una alerta de ingreso exitoso
 					if(respuesta=='add'){
 						//si la respuesta que recibimos del modelo es ADD, mostramos una alerta indicando
 						//que el registro fue ingresado exitosamente
 						//success tipo de notificacion ---- 10 segundos a mostrar la alerta
-						
-
 						alertify.notify('Ingresado exitosamente!', 'success',10, null);
 					}else if(respuesta=='edi'){
 						//si la respuesta que recibimos del modelo es EDI, mostramos una alerta indicando
@@ -231,24 +189,26 @@
 						alertify.notify('error al ingresar!', 'error',10, null);
 					}
 					//Limpiar inputs de formulario
-					$('#formIngreso')[0].reset();
+					$('#formProveedor')[0].reset();
 					//Actualizar la tabla con el nuevo registro
-					mostrarIngresos();
+					mostrarProveedors();
 				}
 			});
-}
+		}
 		});//fin evento del boton guardar del modal
 
-		$('#tabla_ingresos').on('click', '.item-edit', function(){
+
+		$('#tabla_proveedors').on('click', '.item-edit', function(){
 			//para capturar el dato segun el boton que demos click
 			var id = $(this).attr('data');
 
-			$('#ingreso').modal('show');//Para mostrar el modal 
-			//en el modal que tiene id llamado alumno buscamos la clase "modal-title" y le agregamos el texto del encabezado
-			$('#ingreso').find('.modal-title').text('Editar Ingreso');
+			$('#proveedor').modal('show');//Para mostrar el modal 
+			//en el modal que tiene id llamado poliza buscamos la clase "modal-title" y le agregamos el texto del encabezado
+			//$('#').attr()
+			//$('#oculto').hide();
+			$('#proveedor').find('.modal-title').text('Editar proveedor');
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para actualizar
-	
-			$('#formIngreso').attr('action','<?= base_url('IngresoC/actualizar')?>');
+			$('#formProveedor').attr('action','<?= base_url('proveedorC/actualizar')?>');
 
 			//Definimos que trabajaremos con ajax
 			$.ajax({
@@ -257,28 +217,29 @@
 				//metodo de envio de los datos (puede ser get)
 				method: 'post',
 				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_datos')?>',
+				url: '<?= base_url('proveedorC/get_datos')?>',
 				//datos a enviar, id contiene el id del registro que queremos obtener los datos para mostrarlos en el modal
 				data: {id:id},
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
-			
+				//Si la peticion fue exitosa recibiremos una respuesta, en este caso en la variable "datos" recibiremos la palabra los datos del registro que enviamos el id
+				//add la recibiremos cuando una insercion fue exitosa
+				//edi la recibiremos cuando una actualizacion fue exitosa
 				success: function(datos){
-
-					$('#id').val(datos.id_ingreso);
-					//en el input del formulario con id "id" colocamos la informacion del campo id_alumno
-					$('#proveedor').val(datos.id_proveedor);
+					//en el input del formulario con id "id" colocamos la informacion del campo id_poliza
+					$('#id').val(datos.id_proveedor);
+					//en el input del formulario con id "nombre" colocamos la informacion del campo nombre
+					$('#dui_persona').val(datos.dui_persona);
 					//en el input del formulario con id "apellido" colocamos la informacion del campo apellido
-					$('#num_comprobante').val(datos.num_comprobante);
+					$('#telefono').val(datos.telefono);
 					//en el input del formulario con id "sexo" colocamos la informacion del campo id_sexo
-					$('#total_compra').val(datos.total_compra);
-
-					$('#estado').val(datos.id_estado);
+					$('#correo').val(datos.correo);
 					
 				}
 			});
 		});//fin de evento editar
 
 	});
-</script>
+
+</script>>

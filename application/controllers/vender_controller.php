@@ -10,10 +10,18 @@ class vender_controller extends CI_Controller {
 		$this->load->library('cart');
 	}
 	public function index(){
-		$data = array('title' => 'Venta de Producto');
-		$this->load->view('template/header',$data);
-		$this->load->view('vender_view');
-		$this->load->view('template/footer');
+		if ($this->session->userdata('logueado') == TRUE) {
+			if ($this->session->userdata('rol') == 2) {
+				$data = array('title' => 'Inventario || Venta de Producto');
+				$this->load->view('template/header',$data);
+				$this->load->view('vender_view');
+				$this->load->view('template/footer');
+			}else{
+				redirect('Welcome/error404','refresh');
+			}
+		}else{
+			redirect('loginController/index','refresh');
+		}
 	}
 
 	public function get_persona(){
@@ -50,7 +58,7 @@ class vender_controller extends CI_Controller {
 	}
 
 	public function get_vendedor1(){
-		$id = $this->input->post('id');
+		$id = $this->session->userdata('id');
 		$respuesta = $this->vender_model->get_vendedor1($id);
 		echo json_encode($respuesta);
 	}

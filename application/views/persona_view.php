@@ -1,5 +1,4 @@
-<script src="<?php echo base_url('props/js/ingreso.js'); ?>"></script>
-<?php $this->load->helper('ajax_ingreso'); ?>
+
 <body>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
@@ -111,13 +110,16 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title">ingreso</h4>
+							<h4 class="page-title">Persona</h4>
 							<div class="ml-auto text-right">
-								<button type="button" class="btn btn-success" id="nueIng">Nuevo</button>
+								<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									Nueva Persona
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
+
 				<!-- ============================================================== -->
 				<!-- End Bread crumb and right sidebar toggle -->
 				<!-- ============================================================== -->
@@ -131,145 +133,129 @@
 					<!-- ============================================================== -->
 					<div class="row">
 						<div class="col-12">
-							
 							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">ingreso</h4>
-									<div class="table-responsive">
-										<table id="zero_config" class="table table-bordered table-striped table-dark">
-											<thead>
-												<tr>
-													<td>Proveedor</td>
-													<td>Fecha Hora</td>
-													<td>Numero Comprobante</td>
-													<td>Total Compra</td>
-													<td>Estado</td>
-<!-- 				<td>Eliminar</td>
-	<td>Editar</td> -->
-</tr>
-</thead>
-<tbody id="tabla_ingresos">
-	
-</tbody>
-</table>
-</div>
-</div>
-</div>	            
-</div>
-</div>
-<!-- ============================================================== -->
-<!-- End PAge Content -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Right sidebar -->
-<!-- ============================================================== -->
-<!-- .right-sidebar -->
-<!-- ============================================================== -->
-<!-- End Right sidebar -->
-<!-- ============================================================== -->
-</div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-<br>
+								<div class="collapse" id="collapseExample">
+									<div class="card-body wizard-content">
+										<h4 class="card-title">Persona</h4>
+										<h6 class="card-subtitle"></h6>
+										<form id="example-form" action="<?php echo base_url('persona_controller/ingresar') ?>" method="POST" class="m-t-40" onsubmit="return validarFormulario()">
+											<div>
+												<h3>Persona</h3>
+												<section>
 
-<body>
+													<label for="userName">DUI</label>
+													<input type="text" class="required form-control pull-right"  name="dui_persona" placeholder="Ingrese Dui" id="dui">
+				<script type="text/javascript">
+                $(function () {
+                  var selector = document.getElementById("dui");
+
+                  var im = new Inputmask("99999999-9", { "clearIncomplete": true });
+                  im.mask(selector);
+                });
+              </script>
+
+													<label for="nombre1">Nombre 1</label>
+													<input type="text" class="required form-control"  name="nombre1" placeholder="Ingrese Primer Nombre" id="nombre1"> 
+
+													<label for="nombre2">Nombre 2</label>
+													<input type="text" class="required form-control"  name="nombre2" placeholder="Ingrese segundo Nombre" id="nombre2">
+
+													<label for="apellido1">Apellido 1</label>
+													
+													<input type="text" class="required form-control"  name="apellido1" placeholder="Ingrese Primer Nombre" id="apellido1">
+
+													<label for="apellido2">Apellido 2</label>
+													<input type="text" class="required form-control"  name="apellido2" placeholder="Ingrese Segundo apellido" id="apellido2">
+
+													<label for="sexo">Sexo</label>
+													<select class="form-control" name="id_sexo" id="sexo" required>
+														<option value="" class="form-control" >Seleccione un sexo</option>
+														<?php foreach ($sexo as $e) { ?>
+															<option value="<?= $e->id_sexo ?>"><?= $e->sexo ?></option>
+														<?php }  ?>
+													</select>
+												</section>
+
+												<h3>Siguientes</h3>
+												<section>
+													<label for="telefono">Telefono</label>			
+													<input type="text" class="required form-control"  name="telefono" placeholder="Telefono" id="telefono">
+              <script type="text/javascript">
+                $(function () {
+                  var selector = document.getElementById("telefono");
+
+                  var im = new Inputmask("9999-9999", { "clearIncomplete": true });
+                  im.mask(selector);
+                });
+              </script>
+													<label for="direccion">Direccion</label>
+													<input type="text" class="required form-control pull-right"  name="direccion" placeholder="Direccion" id="direccion">
+
+													<div class="d-lg-none">
+														<input type="submit" id="guardar" value="Guardar" class="btn btn-info">
+													</div>
+												</section>
+											</div>
+										</form>
+									</div>
+								</div>							
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Persona</h4>
+										<div class="table-responsive">
+											<table id="zero_config" class="table table-bordered table-striped table-dark">
+												<thead>
+													<th>Dui Persona</th>
+													<th>nombre 1</th>
+													<th>Nombre 2</th>
+													<th>Apellido 1</th>
+													<th>Apellido 2</th>
+													<th>Sexo</th>
+													<th>Direccion</th>
+													<th class="text-center">Eliminar</th>
+													<th class="text-center">Actualizar</th>
 
 
-	<div class="modal" tabindex="-1" role="dialog" id="modalBorrar">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirmacion de eliminar</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Realmente desea eliminar el registro?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btnBorrar">Si, borrar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+												</thead>
+												<?php foreach ($persona as $valor) { ?>
+													<tbody>
+														<tr>
 
+															<td><?= $valor->dui_persona ?></td>
+															<td><?= $valor->nombre1 ?></td>
+															<td><?= $valor->nombre2 ?></td>
+															<td><?= $valor->apellido1 ?></td>
+															<td><?= $valor->apellido2 ?></td>
+															<td><?= $valor->sexo ?></td>
+															<td><?= $valor->direccion ?></td>
 
-
-	<div class="modal fade" id="ingreso">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title" style="font-family: 'Montserrat', cursive; color: #a8834c;"></h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<form id="formIngreso" action="" method="POST" style="font-family: 'Montserrat', cursive; color: #46281e;">
-						<input type="hidden" name="id_ingreso" id="id" value="0">
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Proveedor</span>
-									<select name="proveedor" id="proveedor" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Proveedor --</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Numero Comprobante</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="num_comprobante" id="num_comprobante">
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Total Compra</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="total_compra" id="total_compra">
-								</div>
+															<td><a href="<?php echo base_url('/persona_controller/eliminar/'.$valor->dui_persona) ?>"class="btn btn-danger">ELIMINAR</a></td>
+															<td><a  href="<?php echo base_url('/persona_controller/get_datos/'.$valor->dui_persona) ?>"class="btn btn-info">ACTUALIZAR</a></td>
+														</tr>
+													</tbody>
+												<?php }  ?>
+											</table>
+										</div>
+									</div>
+								</div>	            
 							</div>
 						</div>
+						<!-- ============================================================== -->
+						<!-- End PAge Content -->
+						<!-- ============================================================== -->
+						<!-- ============================================================== -->
+						<!-- Right sidebar -->
+						<!-- ============================================================== -->
+						<!-- .right-sidebar -->
+						<!-- ============================================================== -->
+						<!-- End Right sidebar -->
+						<!-- ============================================================== -->
+					</div>
+					<!-- ============================================================== -->
+					<!-- End Container fluid  -->
+					<!-- ============================================================== -->
+					<br>
+					<form action="<?php echo base_url('persona_controller/ingresar') ?>" method="POST" autocomplete="off" >
 
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Estado</span>
-									<select name="estado" id="estado" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Estado --</option>
-									</select>
-								</div>
-							</div>
 
-						</div>
-
-
-
-					</form>							
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-		</div>
-	</div>		
-
-<!-- 
-	=============================================================================
--->
 

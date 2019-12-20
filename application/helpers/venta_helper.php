@@ -16,7 +16,7 @@
 
 					for (i = 0;  i < datos.length; i++) {
 						tabla += 
-						'<tr>'+
+						'<tr class="bg-dark">'+
 						'<td>'+n+'</td>'+
 						'<td>'+datos[i].dui_persona+'</td>'+
 						'<td>'+datos[i].comprador+'</td>'+

@@ -1,5 +1,4 @@
-<script src="<?php echo base_url('props/js/ingreso.js'); ?>"></script>
-<?php $this->load->helper('ajax_ingreso'); ?>
+
 <body>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
@@ -108,16 +107,7 @@
 				<!-- ============================================================== -->
 				<!-- Bread crumb and right sidebar toggle -->
 				<!-- ============================================================== -->
-				<div class="page-breadcrumb">
-					<div class="row">
-						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title">ingreso</h4>
-							<div class="ml-auto text-right">
-								<button type="button" class="btn btn-success" id="nueIng">Nuevo</button>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<!-- ============================================================== -->
 				<!-- End Bread crumb and right sidebar toggle -->
 				<!-- ============================================================== -->
@@ -131,145 +121,51 @@
 					<!-- ============================================================== -->
 					<div class="row">
 						<div class="col-12">
-							
 							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">ingreso</h4>
-									<div class="table-responsive">
-										<table id="zero_config" class="table table-bordered table-striped table-dark">
-											<thead>
-												<tr>
-													<td>Proveedor</td>
-													<td>Fecha Hora</td>
-													<td>Numero Comprobante</td>
-													<td>Total Compra</td>
-													<td>Estado</td>
-<!-- 				<td>Eliminar</td>
-	<td>Editar</td> -->
-</tr>
-</thead>
-<tbody id="tabla_ingresos">
-	
-</tbody>
-</table>
-</div>
-</div>
-</div>	            
-</div>
-</div>
-<!-- ============================================================== -->
-<!-- End PAge Content -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Right sidebar -->
-<!-- ============================================================== -->
-<!-- .right-sidebar -->
-<!-- ============================================================== -->
-<!-- End Right sidebar -->
-<!-- ============================================================== -->
-</div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-<br>
+								<div class="card-body wizard-content">
+									<h4 class="card-title"></h4>
+									<h6 class="card-subtitle"></h6>
+									<form action="<?php echo base_url().'modeloC/actualizar' ?>" method="POST" onsubmit="return validarFormulario()">
+										<?php foreach($nombre_modelo as $nm){  ?>
+											<div>
+												<h3>Modelo</h3>
+												<section>
+													<div>
+														<input type="hidden" name="id_modelo" required="" value="<?php echo $nm->id_modelo ?>">
+													</div>
+													<label for="userName">Ingresar Modelo</label>
+													<input type="text" name="nombre_modelo" id="modelo" value="<?php echo $nm->nombre_modelo ?>">
 
-<body>
-
-
-	<div class="modal" tabindex="-1" role="dialog" id="modalBorrar">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirmacion de eliminar</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Realmente desea eliminar el registro?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btnBorrar">Si, borrar</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div class="modal fade" id="ingreso">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title" style="font-family: 'Montserrat', cursive; color: #a8834c;"></h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<form id="formIngreso" action="" method="POST" style="font-family: 'Montserrat', cursive; color: #46281e;">
-						<input type="hidden" name="id_ingreso" id="id" value="0">
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Proveedor</span>
-									<select name="proveedor" id="proveedor" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Proveedor --</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Numero Comprobante</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="num_comprobante" id="num_comprobante">
-								</div>
+													<label for="password">Marca</label>
+													<select name="nombre_marca" id="marca" >
+														<option value="">--seleccione la marca--</option>
+														<?php foreach($nombre_marca as $ma){ ?>
+															<option value="<?php echo $ma->id_marca ?>" <?php if($ma->id_marca == $nm->id_marca){ echo 'selected';} ?>><?php echo $ma->nombre_marca ?></option>
+														<?php } ?>
+													</select>
+												</div>
+												<br>
+												<div>
+													<center><input type="submit" value="guardar" class="btn btn-info"></center>
+												</div>
+											</form>
+										<?php } ?>
+									</div>
+								</div>							        
 							</div>
 						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text"><i class="fa fa-tags">&nbsp</i>Total Compra</span>
-									<input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="total_compra" id="total_compra">
-								</div>
-							</div>
-						</div>
-
-						<br>
-						<div class="row">
-							<div class="col">
-								<div class="input-group">
-									<span class="input-group-text" ><i class="fa fa-tags" >&nbsp</i>Estado</span>
-									<select name="estado" id="estado" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-										<option value="">-- Seleccione Estado --</option>
-									</select>
-								</div>
-							</div>
-
-						</div>
-
-
-
-					</form>							
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-		</div>
-	</div>		
-
-<!-- 
-	=============================================================================
--->
-
+						<!-- ============================================================== -->
+						<!-- End PAge Content -->
+						<!-- ============================================================== -->
+						<!-- ============================================================== -->
+						<!-- Right sidebar -->
+						<!-- ============================================================== -->
+						<!-- .right-sidebar -->
+						<!-- ============================================================== -->
+						<!-- End Right sidebar -->
+						<!-- ============================================================== -->
+					</div>
+					<!-- ============================================================== -->
+					<!-- End Container fluid  -->
+					<!-- ============================================================== -->
+					<br>

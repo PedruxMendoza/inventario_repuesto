@@ -1,16 +1,17 @@
 <script>
-	$(document).ready(function () {
-				//llamamos a la funcion que muestra a TODOS los alumnos en la tabla
-		mostrarIngresos();
+	$(document).ready(function(){
+		var status = "";
+		//llamamos a la funcion que muestra a TODOS los alumnos en la tabla
+		mostrarUsuarios();
 
 		//Funcion para mostrar alumnos
-		function mostrarIngresos(){
+		function mostrarUsuarios(){
 			//Definimos que trabajaremos con ajax
 			$.ajax({
 				//tipo de solicitud a realizar
 				type: 'ajax',
 				//direccion donde definiremos el controlador y metodo para obtener los alumnos
-				url: '<?= base_url('IngresoC/get_ingresos') ?>',
+				url: '<?= base_url('usuarioC/get_usuario') ?>',
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
@@ -30,18 +31,17 @@
 						//cuerpo de la tabla (TOME EN CUENTA QUE TODO DEBE IR CONCATENADO)
 						tabla +=
 						'<tr class="bg-dark">'+
-						'<td>'+datos[i].dui_persona+' --> '+datos[i].proveedor+'</td>'+
-						'<td>'+datos[i].fecha_hora+'</td>'+
-						'<td>'+datos[i].num_comprobante+'</td>'+
-						
-						'<td>'+datos[i].total_compra+'</td>'+
-						'<td>'+datos[i].estado+'</td>'+
+
+						'<td>'+datos[i].correo+'</td>'+
+						//'<td>'+datos[i].clave+'</td>'+
+						'<td>'+datos[i].dui_persona+' '+datos[i].nombre1+' '+datos[i].nombre2+' '+datos[i].apellido1+' '+datos[i].apellido2+'</td>'+
+						'<td>'+datos[i].nombre_rol+'</td>'+
 
 						//creamos un boton para eliminar y editar
 						//tome en cuenta que cada boton tiene la clase borrar y item-edit segun la accion que corresponda
-						'<td>'+'<a href="javascript:;" class="btn btn-danger btn-sm borrar" data="'+datos[i].id_ingreso+'">Eliminar</a>'+
+						'<td>'+'<a href="javascript:;" class="btn btn-danger btn-sm borrar" data="'+datos[i].id_usuario+'">Eliminar</a>'+
 						'</td>'+
-						'<td>'+'<a href="javascript:;" class="btn btn-info btn-sm item-edit" data="'+datos[i].id_ingreso+'">Editar</a>'+
+						'<td>'+'<a href="javascript:;" class="btn btn-info btn-sm item-edit" data="'+datos[i].id_usuario+'">Editar</a>'+
 						'</td>'+
 						'</tr>';
 						//incrementamos la variable que nos sirve de correlativo
@@ -49,13 +49,15 @@
 					}
 					//en la vista la etiqueta <tbody> contiene el id "tabla_alumnos"
 					//con esta linea entregamos la variable que contiene el cuerpo de la tabla
-					$('#tabla_ingresos').html(tabla);
+					$('#tabla_usuarios').html(tabla);
 				}
 			});
 		};//fin de funcion mostrar Alumnos
 
+
+
 	//cuando damos click al boton eliminar de cada registro de la tabla_alumnos se ejecutara lo siguiente
-	$('#tabla_ingresos').on('click', '.borrar', function(){
+	$('#tabla_usuarios').on('click', '.borrar', function(){
 
 			$id = $(this).attr('data');//para capturar el dato segun el boton que demos click
 
@@ -71,7 +73,7 @@
 					//metodo de envio de los datos (puede ser get)
 					method: 'post',
 					//direccion hacia donde enviaremos la informacion (controlador/metodo)
-					url: '<?php echo base_url('IngresoC/eliminar')?>',
+					url: '<?php echo base_url('usuarioC/eliminar')?>',
 					//datos a enviar, $id es el valor capturado anteriomente del boton
 					data: {id:$id},
 					//Tipo de respuesta que recibiremos
@@ -87,7 +89,7 @@
 						if(respuesta==true){
 							alertify.notify('Eliminado exitosamente!', 'success', 10, null);
 							//Llamamos a la funcion para mostrar los alumnos y asi actualizar SOLO LA TABLA y NO TODA LA PAGINA
-							mostrarIngresos();
+							mostrarUsuarios();
 						}else{
 						//si la respuesta que recibimos del modelo es FLASE, mostramos una alerta indicando
 						//que el registro no se pudo eliminar
@@ -101,17 +103,20 @@
 
 		});
 
-		$('#nueIng').click(function(){
-
-			//mostramos el modal que tiene el formulario para ingresar un poliza
-			$('#ingreso').modal('show');
-			$('#oculto').show();
-
+	//agregamos un evento al boton para agregar nuevo alumno
+	$('#nueUsu').click(function(){
+			//mostramos el modal que tiene el formulario para ingresar un alumno
+			$('#usuario').modal('show');
 			//modificamos el titulo del modal
-			$('#ingreso').find('.modal-title').text('Nuevo Ingreso');
+			$('#usuario').find('.modal-title').text('Nuevo Usuario');
+			$('#oculto').show();
+			$('#formUsuario')[0].reset();
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para ingresar
-			$('#formIngreso').attr('action','<?= base_url('ingresoC/ingresar')?>');
+			$('#formUsuario').attr('action','<?= base_url('usuarioC/ingresar')?>');
+			status = "add";
+			console.log(status);
 		});
+
 
 		get_persona();//llamado a la funcion para mostrar sexos
 
@@ -121,7 +126,7 @@
 				//tipo de solicitud a realizar
 				type: 'ajax',
 				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_proveedor') ?>',
+				url: '<?= base_url('usuarioC/get_persona') ?>',
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
@@ -134,33 +139,29 @@
 					var i;
 
 					//agregamos a op un option vacio para que no aparezca ninguna opcion seleccionada
-					op +="<option value=''>--Seleccione un Proveedor--</option>";
+					op +="<option value=''>--Seleccione Dui - Persona--</option>";
 					//recorremos los datos recibidos, con datos.length obtenemos la longitud del arreglo
 					//osea, numero de registros recibidos
 					for(i=0; i<datos.length; i++){
 						//en la variable op vamos guardando cada registro obtenido del modelo
-						
-						
-						 op +="<option value='"+datos[i].id_proveedor+"'> "+datos[i].dui_persona+" --> "+datos[i].proveedor+"</option>";
-
-
-
+						op +="<option value='"+datos[i].dui_persona+"'>"+datos[i].dui_persona+" "+datos[i].nombre1+" "+datos[i].nombre2+" "+datos[i].apellido1+" "+datos[i].apellido2+"</option>";
 					}
-					//al select con el id curso le entregamos la variable op que contiene los option
-					$('#proveedor').html(op);
+					//al select con el id sexo le entregamos la variable op que contiene los option
+					$('#dui_persona').html(op);
 				}
 			});
-		}//fin de funcion para mostrar cursos	
+		}//fin de funcion para mostrar sexos
 
-		get_estado();//llamado a la funcion para mostrar sexos
 
-		function get_estado(){
+get_rol();//llamado a la funcion para mostrar sexos
+
+function get_rol(){
 			//Definimos que trabajaremos con ajax
 			$.ajax({
 				//tipo de solicitud a realizar
 				type: 'ajax',
 				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_estado') ?>',
+				url: '<?= base_url('usuarioC/get_rol') ?>',
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
@@ -173,26 +174,28 @@
 					var i;
 
 					//agregamos a op un option vacio para que no aparezca ninguna opcion seleccionada
-					op +="<option value=''>--Seleccione un Estado--</option>";
+					op +="<option value=''>--Seleccione Rol--</option>";
 					//recorremos los datos recibidos, con datos.length obtenemos la longitud del arreglo
 					//osea, numero de registros recibidos
 					for(i=0; i<datos.length; i++){
 						//en la variable op vamos guardando cada registro obtenido del modelo
-						op +="<option value='"+datos[i].id_estado+"'>"+datos[i].estado+"+</option>";
+						op +="<option value='"+datos[i].id_rol+"'>"+datos[i].nombre_rol +"</option>";
 					}
-					//al select con el id curso le entregamos la variable op que contiene los option
-					$('#estado').html(op);
+					//al select con el id sexo le entregamos la variable op que contiene los option
+					$('#rol').html(op);
 				}
 			});
-		}//fin de funcion para mostrar cursos
+		}//fin de funcion para mostrar sexos
 
+		//agregamos un evento al boton del modal GUARDAR
 		$('#btnGuardar').click(function(){
-
+			$resp = validar();
+			console.log($resp);
+			if($resp == true){
 			//capturamos lo que este en el atributo action del formulario
-			$url = $('#formIngreso').attr('action');
+			$url = $('#formUsuario').attr('action');
 			//capturamos todos los datos del formulario
-			$data = $('#formIngreso').serialize();
-			if (validar() == true) {
+			$data = $('#formUsuario').serialize();
 			//Definimos que trabajaremos con ajax
 			$.ajax({
 				//tipo de solicitud a realizar
@@ -205,20 +208,17 @@
 				data: $data,
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
-
 				//Si la peticion fue exitosa recibiremos una respuesta, en este caso en la variable "respuesta" recibiremos la palabra add o edi
 				//add la recibiremos cuando una insercion fue exitosa
 				//edi la recibiremos cuando una actualizacion fue exitosa
 				success: function(respuesta){
 					//Ocultamos el moda, hide significa "oculto"
-					$('#ingreso').modal('hide');
+					$('#usuario').modal('hide');
 					//si la respuesta recibida es add mostramos una alerta de ingreso exitoso
 					if(respuesta=='add'){
 						//si la respuesta que recibimos del modelo es ADD, mostramos una alerta indicando
 						//que el registro fue ingresado exitosamente
 						//success tipo de notificacion ---- 10 segundos a mostrar la alerta
-						
-
 						alertify.notify('Ingresado exitosamente!', 'success',10, null);
 					}else if(respuesta=='edi'){
 						//si la respuesta que recibimos del modelo es EDI, mostramos una alerta indicando
@@ -231,24 +231,29 @@
 						alertify.notify('error al ingresar!', 'error',10, null);
 					}
 					//Limpiar inputs de formulario
-					$('#formIngreso')[0].reset();
+					$('#formUsuario')[0].reset();
 					//Actualizar la tabla con el nuevo registro
-					mostrarIngresos();
+					mostrarUsuarios();
 				}
 			});
-}
+		}
+
 		});//fin evento del boton guardar del modal
 
-		$('#tabla_ingresos').on('click', '.item-edit', function(){
+		//cuando damos click al boton de editar de cada registro de la tabla_alumnos se ejecutara lo siguiente	
+		$('#tabla_usuarios').on('click', '.item-edit', function(){
 			//para capturar el dato segun el boton que demos click
 			var id = $(this).attr('data');
 
-			$('#ingreso').modal('show');//Para mostrar el modal 
+			$('#usuario').modal('show');//Para mostrar el modal 
 			//en el modal que tiene id llamado alumno buscamos la clase "modal-title" y le agregamos el texto del encabezado
-			$('#ingreso').find('.modal-title').text('Editar Ingreso');
+			$('#usuario').find('.modal-title').text('Editar Usuario');
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para actualizar
-	
-			$('#formIngreso').attr('action','<?= base_url('IngresoC/actualizar')?>');
+			$('#oculto').hide();
+			$("#contrasenna").attr("readonly","readonly");
+			$('#formUsuario').attr('action','<?= base_url('usuarioC/actualizar')?>');
+			status = "modi";
+			console.log(status);
 
 			//Definimos que trabajaremos con ajax
 			$.ajax({
@@ -257,28 +262,31 @@
 				//metodo de envio de los datos (puede ser get)
 				method: 'post',
 				//direccion hacia donde enviaremos la informacion (controlador/metodo)
-				url: '<?= base_url('IngresoC/get_datos')?>',
+				url: '<?= base_url('usuarioC/get_datos')?>',
 				//datos a enviar, id contiene el id del registro que queremos obtener los datos para mostrarlos en el modal
 				data: {id:id},
 				//Tipo de respuesta que recibiremos
 				dataType: 'json',
 
-			
+				//Si la peticion fue exitosa recibiremos una respuesta, en este caso en la variable "datos" recibiremos la palabra los datos del registro que enviamos el id
+				//add la recibiremos cuando una insercion fue exitosa
+				//edi la recibiremos cuando una actualizacion fue exitosa
 				success: function(datos){
 
-					$('#id').val(datos.id_ingreso);
+					$('#id').val(datos.id_usuario);
 					//en el input del formulario con id "id" colocamos la informacion del campo id_alumno
-					$('#proveedor').val(datos.id_proveedor);
+					$('#correo').val(datos.correo);
 					//en el input del formulario con id "apellido" colocamos la informacion del campo apellido
-					$('#num_comprobante').val(datos.num_comprobante);
+					$('#dui_persona').val(datos.dui_persona);
 					//en el input del formulario con id "sexo" colocamos la informacion del campo id_sexo
-					$('#total_compra').val(datos.total_compra);
-
-					$('#estado').val(datos.id_estado);
-					
+					$('#rol').val(datos.id_rol);
+					$('#contrasenna').val(datos.clave);
 				}
 			});
 		});//fin de evento editar
 
-	});
-</script>
+
+			});//fin de document.ready
+
+
+		</script>
