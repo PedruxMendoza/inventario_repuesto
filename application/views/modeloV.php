@@ -180,7 +180,7 @@
 																<td><?php echo $m->id_modelo ?></td>
 																<td><?php echo $m->nombre_modelo ?></td>
 																<td><?php echo $m->nombre_marca ?></td>
-																<td ><a onclick="alerta_eliminar('<?= $m->id_modelo ?>' class="btn btn-danger" >Eliminar</a></td>
+																<td ><a onclick="alerta_eliminar('<?= $m->id_modelo ?>')" class="btn btn-danger" >Eliminar</a></td>
 																<td ><a href="<?php echo base_url().'modeloC/get_datos/'.$m->id_modelo; ?>" class="btn btn-info">Actualizar</a></td>
 
 															</tr>
