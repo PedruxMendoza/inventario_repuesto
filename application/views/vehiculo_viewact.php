@@ -185,12 +185,7 @@
                           </select>
 
                           <label for="millas">Millas</label>
-                          <input type="text" class="required form-control"  name="millas" value="<?= $valor->millas ?>" id="millas">
-                          <script type="text/javascript">
-                            $(function () {
-                              $("#millas").inputmask({ alias : "currency", prefix: '', rightAlign: false, "clearIncomplete": true});
-                            });
-                          </script>                          
+                          <input type="text" class="required form-control"  name="millas" value="<?= $valor->millas ?>" id="millas">                        
 
                           <label for="serie">Serie </label>
                           <input type="number" class="required form-control"  name="serie" value="<?= $valor->serie ?>" id="serie">
@@ -225,12 +220,7 @@
                           </select>
 
                           <label for="precio_ingreso">Precio ingreso</label>
-                          <input type="text" class="required form-control"  name="precio_ingreso" value="<?= $valor->precio_ingreso ?>" id="pingreso">
-                          <script type="text/javascript">
-                            $(function () {
-                              $("#pingreso").inputmask({ alias : "currency", prefix: '', rightAlign: false, "clearIncomplete": true});
-                            });
-                          </script>  
+                          <input type="text" class="required form-control"  name="precio_ingreso" value="<?= $valor->precio_ingreso ?>" id="pingreso">  
                           <div class="d-lg-none">
 
                             <input type="submit" id="guardar" value="Guardar" class="btn btn-info">

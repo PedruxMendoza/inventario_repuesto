@@ -125,9 +125,9 @@ class vehiculo_controller extends CI_Controller {
 					$datos['ingreso'] = $this->vehiculo_model->get_ingreso();
 					$datos['title'] = 'Inventario || Vehiculo';  
 					$datos['msj'] = "errorI";
-                	$this->load->view('template/header',$datos);
-                	$this->load->view('vehiculo_view');
-                	$this->load->view('template/footer');              
+					$this->load->view('template/header',$datos);
+					$this->load->view('vehiculo_view');
+					$this->load->view('template/footer');             
                 }
 			}else{
 				redirect('Welcome/error404','refresh');

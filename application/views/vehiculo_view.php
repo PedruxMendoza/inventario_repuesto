@@ -168,7 +168,7 @@
 													<select class="required form-control" name="id_poliza" id="poliza" >
 														<option value="" class="form-control" ></option>
 														<?php foreach ($poliza as $p) { ?>
-															<option value="<?= $p->id_poliza ?>"><?= $p->id_tipo_contenedor ?></option>
+															<option value="<?= $p->id_poliza ?>"><?= $p->id_poliza ?></option>
 														<?php }  ?>
 													</select>
 
@@ -185,12 +185,7 @@
 													</select>
 
 													<label for="millas">Millas</label>
-													<input type="text" class="required form-control"  name="millas" id="millas">
-													<script type="text/javascript">
-														$(function () {
-															$("#millas").inputmask({ alias : "currency", prefix: '', rightAlign: false, "clearIncomplete": true});
-														});
-													</script> 
+													<input type="text" class="required form-control"  name="millas" id="millas"> 
 													<label for="serie">Serie </label>
 													<input type="number" class="required form-control"  name="serie" id="serie">
 
@@ -225,11 +220,6 @@
 
 														<label for="precio_ingreso">Precio ingreso</label>
 														<input type="number" class="required form-control"  name="precio_ingreso" id="pingreso">
-														<script type="text/javascript">
-															$(function () {
-																$("#pingreso").inputmask({ alias : "currency", prefix: '', rightAlign: false, "clearIncomplete": true});
-															});
-														</script>  
 														<div class="d-lg-none">
 
 															<input type="submit" id="guardar" value="Guardar" class="btn btn-info">
