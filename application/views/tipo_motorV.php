@@ -112,7 +112,7 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title"></h4>
+							<h4 class="page-title">Tipo motor</h4>
 							<div class="ml-auto text-right">
 								
 								<button type="button" class="btn btn-success" id="nueTm">Nuevo</button>
@@ -136,7 +136,7 @@
 							
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Motor</h4>
+									<h4 class="card-title">Tipo Motor</h4>
 									<div class="table-responsive">
 										<table id="zero_config" class="table table-bordered table-striped table-dark">
 											<thead>

@@ -110,7 +110,7 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title"></h4>
+							<h4 class="page-title">Modelo</h4>
 							<div class="ml-auto text-right">
 								<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 									Nuevo Modelo

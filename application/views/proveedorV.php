@@ -111,7 +111,7 @@
 				<div class="page-breadcrumb">
 					<div class="row">
 						<div class="col-12 d-flex no-block align-items-center">
-							<h4 class="page-title"></h4>
+							<h4 class="page-title">Proveedor</h4>
 							<div class="ml-auto text-right">
 								<button type="button" class="btn btn-info" id="nuePro"> Nuevo proveedor</button>
 							</div>

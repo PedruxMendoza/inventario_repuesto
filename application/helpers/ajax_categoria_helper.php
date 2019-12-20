@@ -89,7 +89,7 @@
 			//mostramos el modal que tiene el formulario para ingresar un poliza
 			$('#categoria').modal('show');
 			//$('#oculto').show();
-
+			$('#formCategoria')[0].reset();
 			//modificamos el titulo del modal
 			$('#categoria').find('.modal-title').text('Nueva Categoria');
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para ingresar

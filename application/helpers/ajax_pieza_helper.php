@@ -84,7 +84,7 @@
 			//mostramos el modal que tiene el formulario para ingresar un poliza
 			$('#pieza').modal('show');
 			$('#oculto').show();
-
+			$('#formPieza')[0].reset();
 			//modificamos el titulo del modal
 			$('#pieza').find('.modal-title').text('Nueva Pieza');
 			//modificamos el atributo action, le agregamos la ruta del controlador y modelo para ingresar

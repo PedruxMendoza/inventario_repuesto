@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-12-2019 a las 17:47:36
+-- Tiempo de generación: 20-12-2019 a las 18:18:18
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -43,6 +43,8 @@ INSERT INTO `categoria_piezas` (`id_categoria`, `nombre_categoria`) VALUES
 (3, 'CHIO'),
 (7, 'HumbertoCat'),
 (8, 'Probando'),
+(12, 'Repuestos de Interior'),
+(11, 'Suspension'),
 (1, 'toyota');
 
 -- --------------------------------------------------------
@@ -175,8 +177,6 @@ INSERT INTO `modelo` (`id_modelo`, `nombre_modelo`, `id_marca`) VALUES
 (7, 'Benitez', 4),
 (9, 'qqweqwedwedasdfaedgsadrfgcxvdfgsfvbw', 1),
 (10, 'hola', 1),
-(20, 'adasdasdddasdasdsad', 1),
-(24, 'Rocio', 3),
 (26, 'Corolla', 11),
 (27, 'Civic', 12);
 
@@ -194,7 +194,7 @@ CREATE TABLE `persona` (
   `apellido2` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `id_sexo` int(11) NOT NULL,
   `telefono` char(9) COLLATE latin1_spanish_ci NOT NULL,
-  `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL
+  `direccion` varchar(150) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -252,8 +252,8 @@ CREATE TABLE `pieza_vehiculo` (
 
 INSERT INTO `pieza_vehiculo` (`id_pieza_vehiculo`, `id_pieza`, `id_vehiculo`, `precio_ingreso`, `precio_venta`, `stock`) VALUES
 (1, 4, 7, 5, 3, 315646),
-(2, 3, 3, 4535, 345353, 53453),
-(3, 2, 7, 54353, 53453, 5348);
+(2, 6, 3, 4535, 345353, 53453),
+(5, 3, 19, 3232, 3232, 232);
 
 -- --------------------------------------------------------
 
@@ -424,7 +424,8 @@ INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `dui_persona`, `id_rol`)
 (32, '123!aMlm', '76d80224611fc919a5d54f0ff9fba446', '123456', 1),
 (34, 'wilfredo@hotmail.com', '60f75fa1ac026844fbb09cbe0cd573e8', '123456789', 2),
 (35, 'cactusworld@gmail.com', '202cb962ac59075b964b07152d234b70', '123456', 1),
-(36, 'benitezh5@hotmail.com', '9e68ac7abe4f1e833f6f84d6cc86f1a6', '123456789', 1);
+(36, 'benitezh5@hotmail.com', '9e68ac7abe4f1e833f6f84d6cc86f1a6', '123456789', 1),
+(37, 'rociomiranda@gmail.com', '60f75fa1ac026844fbb09cbe0cd573e8', '222222222', 1);
 
 -- --------------------------------------------------------
 
@@ -455,7 +456,7 @@ CREATE TABLE `vehiculo` (
 --
 
 INSERT INTO `vehiculo` (`id_vehiculo`, `id_modelo`, `anio`, `color`, `fecha_ingreso`, `VIN`, `id_poliza`, `id_clase`, `millas`, `serie`, `id_transmision`, `id_tipo_motor`, `serial`, `id_ingreso`, `precio_ingreso`) VALUES
-(3, 1, 1992, '1dada', '0002-12-31', 'sada', '123', 1, 123456789, 123, 1, 1, '23', 4, 232),
+(3, 1, 1992, '1dada', '0002-12-31', '12345678123456786', '123', 1, 3232, 123, 1, 1, '12345678912345672536', 4, 232),
 (7, 1, 1992, '332', '0032-03-12', '12345678909876543', '123', 1, 32, 323, 2, 2, '12345678909876543218', 4, 30),
 (12, 7, 0000, 'ads654asddsa', '2019-12-17', '98asd798a7d9s', '0000', 1, 5645546456654, 2147483647, 1, 1, '56465465', 4, 46456),
 (14, 27, 2001, 'Blanco', '2019-08-03', '12345678912345645', 'asdad', 1, 2, 2147483647, 1, 1, '12345678909876543212', 4, 3),
@@ -649,7 +650,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `categoria_piezas`
 --
 ALTER TABLE `categoria_piezas`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `clase_vehiculo`
@@ -679,25 +680,25 @@ ALTER TABLE `ingreso`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `modelo`
 --
 ALTER TABLE `modelo`
-  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza`
 --
 ALTER TABLE `pieza`
-  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_pieza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `pieza_vehiculo`
 --
 ALTER TABLE `pieza_vehiculo`
-  MODIFY `id_pieza_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pieza_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -739,7 +740,7 @@ ALTER TABLE `transmision`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
