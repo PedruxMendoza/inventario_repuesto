@@ -1,0 +1,22 @@
+SELECT v.id_venta,v.dui_persona,CONCAT(p.nombre1,' ',p.nombre2,' ',p.apellido1,' ',p.apellido2) as comprador ,CONCAT(pv.nombre1,' ',pv.apellido1) as vendedor,pi.nombre_pieza,dv.cantidad,ph.precio_venta,v.num_factura,v.fecha_hora,v.total_venta FROM venta v 
+LEFT JOIN persona p ON p.dui_persona=v.dui_persona
+INNER JOIN usuario u ON u.id_usuario=v.id_usuario
+INNER JOIN persona pv ON pv.dui_persona=u.dui_persona
+INNER JOIN detalle_venta dv ON dv.id_venta=v.id_venta
+INNER JOIN pieza pi ON pi.Id_pieza=dv.id_pieza
+INNER JOIN pieza_vehiculo ph ON ph.id_pieza=pi.Id_pieza  
+
+
+SELECT u.id_usuario,p.dui_persona,CONCAT(p.nombre1," ",p.nombre2," ",p.apellido1," ",p.apellido2) as vendedor FROM usuario u 
+INNER JOIN persona p ON p.dui_persona=u.dui_persona
+
+SELECT v.id_venta,v.dui_persona, CONCAT(p.nombre1," ",p.nombre2," ",p.apellido1," ",p.apellido2) as comprador ,CONCAT(pv.nombre1," ",pv.apellido1) as vendedor,v.num_factura,v.fecha_hora,v.total_venta FROM venta v
+LEFT JOIN persona p ON p.dui_persona=v.dui_persona
+INNER JOIN usuario u ON u.id_usuario=v.id_usuario
+INNER JOIN persona pv ON pv.dui_persona=u.dui_persona
+
+SELECT FROM detalle_venta dv
+INNER JOIN venta v ON v.id_venta=dv.id_venta
+INNER JOIN pieza p ON p.Id_pieza=dv.id_pieza
+INNER JOIN pieza_vehiculo pv ON pv.id_pieza=dv.id_pieza
+
